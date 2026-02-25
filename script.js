@@ -14,6 +14,7 @@ let gameActive = false;
 let items = [];
 let spawnTimer;
 let gameTimer;
+let rabbitX = 155; // ウサギの初期X座標（90px幅の中央）
 
 // マウスとタッチ両方でうさぎを動かす
 function moveRabbit(e) {
@@ -28,7 +29,27 @@ function moveRabbit(e) {
     if (x < 0) x = 0;
     if (x > rect.width - rabbit.offsetWidth) x = rect.width - rabbit.offsetWidth;
     rabbit.style.left = x + 'px';
+    rabbitX = x;
 }
+
+// 矢印キーでウサギを動かす
+document.addEventListener('keydown', (e) => {
+    if (!gameActive) return;
+    
+    const moveAmount = 15; // 1回の移動量
+    const rect = gameContainer.getBoundingClientRect();
+    const maxX = rect.width - rabbit.offsetWidth;
+    
+    if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        rabbitX = Math.max(0, rabbitX - moveAmount);
+        rabbit.style.left = rabbitX + 'px';
+    } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        rabbitX = Math.min(maxX, rabbitX + moveAmount);
+        rabbit.style.left = rabbitX + 'px';
+    }
+});
 
 gameContainer.addEventListener('mousemove', moveRabbit);
 gameContainer.addEventListener('touchstart', moveRabbit, {passive: false});

@@ -83,11 +83,11 @@ body {
 
 /* キャラクターとアイテム */
 #rabbit {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     position: absolute;
-    bottom: 40px;
-    left: 170px;
+    bottom: 30px;
+    left: 165px;
     background-image: url('images/rabbit.png'); /* うさぎ画像 */
     background-size: contain;
     background-repeat: no-repeat;

@@ -93,7 +93,7 @@ function spawnItems() {
     
     item.classList.add('item');
     item.classList.add(isCarrot ? 'carrot' : 'daikon');
-    item.style.left = Math.random() * (gameContainer.offsetWidth - 50) + 'px';
+    item.style.left = Math.random() * (gameContainer.offsetWidth - 40) + 'px';
     item.style.top = '-50px';
     
     gameScreen.appendChild(item);

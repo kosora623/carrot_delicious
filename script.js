@@ -16,6 +16,14 @@ let spawnTimer;
 let gameTimer;
 let rabbitX = 155; // ウサギの初期X座標（90px幅の中央）
 
+// キー状態の管理
+const keys = {
+    ArrowLeft: false,
+    ArrowRight: false
+};
+
+const moveAmount = 10; // 1フレームあたりの移動量
+
 // マウスとタッチ両方でうさぎを動かす
 function moveRabbit(e) {
     if (!gameActive) return;
@@ -32,22 +40,22 @@ function moveRabbit(e) {
     rabbitX = x;
 }
 
-// 矢印キーでウサギを動かす
+// 矢印キーでウサギを動かす（キー状態管理）
 document.addEventListener('keydown', (e) => {
-    if (!gameActive) return;
-    
-    const moveAmount = 15; // 1回の移動量
-    const rect = gameContainer.getBoundingClientRect();
-    const maxX = rect.width - rabbit.offsetWidth;
-    
     if (e.key === 'ArrowLeft') {
+        keys.ArrowLeft = true;
         e.preventDefault();
-        rabbitX = Math.max(0, rabbitX - moveAmount);
-        rabbit.style.left = rabbitX + 'px';
     } else if (e.key === 'ArrowRight') {
+        keys.ArrowRight = true;
         e.preventDefault();
-        rabbitX = Math.min(maxX, rabbitX + moveAmount);
-        rabbit.style.left = rabbitX + 'px';
+    }
+});
+
+document.addEventListener('keyup', (e) => {
+    if (e.key === 'ArrowLeft') {
+        keys.ArrowLeft = false;
+    } else if (e.key === 'ArrowRight') {
+        keys.ArrowRight = false;
     }
 });
 
@@ -129,6 +137,19 @@ function spawnItems() {
 
 function updateItems() {
     if (!gameActive) return;
+
+    // キーボード入力に応じてウサギを移動
+    const rect = gameContainer.getBoundingClientRect();
+    const maxX = rect.width - rabbit.offsetWidth;
+    
+    if (keys.ArrowLeft) {
+        rabbitX = Math.max(0, rabbitX - moveAmount);
+        rabbit.style.left = rabbitX + 'px';
+    }
+    if (keys.ArrowRight) {
+        rabbitX = Math.min(maxX, rabbitX + moveAmount);
+        rabbit.style.left = rabbitX + 'px';
+    }
 
     // 時間経過とともに落下速度を上げる (基本速度 3 + 経過秒数/5)
     const speed = 3 + (20 - timeLeft) * 0.2;

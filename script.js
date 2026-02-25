@@ -14,7 +14,7 @@ let gameActive = false;
 let items = [];
 let spawnTimer;
 let gameTimer;
-let rabbitX = 155; // ウサギの初期X座標（90px幅の中央）
+let rabbitX = 155; // ウサギの初期X座標（90px幅を考慮した中央）
 
 // キー状態の管理
 const keys = {

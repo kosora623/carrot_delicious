@@ -3,18 +3,22 @@ body {
     padding: 0;
     overflow: hidden;
     touch-action: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f8ff;
 }
 
 #game-container {
-    width: 100%;
-    max-width: 400px;
-    height: 100vh;
-    margin: 0 auto;
+    width: 400px;
+    height: 600px;
     position: relative;
     overflow: hidden;
     background-color: #f0f8ff;
-    border: none;
+    border: 2px solid #999;
     touch-action: none;
+    flex-shrink: 0;
 }
 
 .screen {
@@ -86,9 +90,8 @@ body {
     width: 90px;
     height: 90px;
     position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 20px;
+    left: 155px;
     background-image: url('images/rabbit.png'); /* うさぎ画像 */
     background-size: contain;
     background-repeat: no-repeat;

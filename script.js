@@ -118,10 +118,17 @@ function spawnItems() {
     const spawnRate = Math.max(300, 800 - (20 - timeLeft) * 20);
 
     const item = document.createElement('div');
-    const isCarrot = Math.random() > 0.3; // 70%の確率で人参
+    let itemType;
+    
+    // 後半（残り時間10秒以下）は時計アイテムが15%の確率で出現
+    if (timeLeft <= 10 && Math.random() < 0.15) {
+        itemType = 'timebonus';
+    } else {
+        itemType = Math.random() > 0.3 ? 'carrot' : 'daikon'; // 70%の確率で人参
+    }
     
     item.classList.add('item');
-    item.classList.add(isCarrot ? 'carrot' : 'daikon');
+    item.classList.add(itemType);
     item.style.left = Math.random() * (gameContainer.offsetWidth - 40) + 'px';
     item.style.top = '-50px';
     
@@ -129,7 +136,7 @@ function spawnItems() {
     items.push({
         el: item,
         y: -50,
-        type: isCarrot ? 'carrot' : 'daikon'
+        type: itemType
     });
 
     spawnTimer = setTimeout(spawnItems, spawnRate);
@@ -152,7 +159,7 @@ function updateItems() {
     }
 
     // 時間経過とともに落下速度を上げる (基本速度 3 + 経過秒数/5)
-    const speed = 30 + (20 - timeLeft) * 0.2;
+    const speed = 3 + (20 - timeLeft) * 0.2;
 
     for (let i = items.length - 1; i >= 0; i--) {
         const item = items[i];
@@ -172,8 +179,12 @@ function updateItems() {
             // キャッチ成功
             if (item.type === 'carrot') {
                 score += 100;
-            } else {
+            } else if (item.type === 'daikon') {
                 score = Math.max(0, score - 50); // 大根はマイナス（0以下にはならない）
+            } else if (item.type === 'timebonus') {
+                timeLeft += 3; // 時間を3秒追加
+                timerDisplay.textContent = timeLeft;
+                showTimeBonus(); // エフェクト表示
             }
             scoreDisplay.textContent = score;
             removeItem(i);
@@ -206,4 +217,38 @@ function endGame() {
     finalScoreDisplay.textContent = score;
     gameScreen.classList.add('hidden');
     resultScreen.classList.remove('hidden');
+}
+
+// 時間ボーナスのエフェクト表示
+function showTimeBonus() {
+    const bonus = document.createElement('div');
+    bonus.className = 'time-bonus-effect';
+    bonus.textContent = '+3秒!';
+    gameScreen.appendChild(bonus);
+    
+    setTimeout(() => {
+        bonus.remove();
+    }, 1000);
+}
+
+// 共有ボタンの処理（クリップボードにコピー）
+document.getElementById('share-button').addEventListener('click', () => {
+    const text = `にんじんおいしいで${score}点を獲得しました！`;
+    navigator.clipboard.writeText(text).then(() => {
+        showCopyMessage();
+    }).catch(err => {
+        console.error('コピーに失敗しました:', err);
+    });
+});
+
+// コピー完了メッセージの表示
+function showCopyMessage() {
+    const message = document.createElement('div');
+    message.className = 'copy-message';
+    message.textContent = 'コピーしました！';
+    resultScreen.appendChild(message);
+    
+    setTimeout(() => {
+        message.remove();
+    }, 2000);
 }

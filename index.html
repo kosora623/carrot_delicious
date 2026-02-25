@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>にんじんおいしい</title>
+    
+    <meta property="og:title" content="にんじんおいしい">
+    <meta property="og:description" content="20秒で何本の人参をキャッチできるかな？">
+    <meta property="og:image" content="images/title_bg.png">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="start-screen" class="screen">
+            <div class="title-bg"></div>
+            <div class="title-rabbit"></div>
+            <button id="start-button">ゲームスタート！</button>
+        </div>
+
+        <div id="countdown-screen" class="screen hidden">
+            <div id="countdown-number"></div>
+        </div>
+
+        <div id="game-screen" class="screen hidden">
+            <div id="info">
+                <span>スコア: <span id="score">0</span></span>
+                <span>残り時間: <span id="timer">20</span>s</span>
+            </div>
+            <div id="rabbit"></div>
+        </div>
+
+        <div id="result-screen" class="screen hidden">
+            <h1>タイムアップ！</h1>
+            <p>あなたのスコア</p>
+            <div id="final-score">0</div>
+            <button id="retry-button">もう一度あそぶ</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

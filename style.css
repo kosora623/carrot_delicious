@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    touch-action: none;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background-color: #f0f8ff;
+    border: none;
+    touch-action: none;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.hidden { display: none !important; }
+
+/* タイトル画面 */
+.title-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 50%;
+    background-image: url('images/title_bg.png'); /* ユーザー様のタイトル背景 */
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.title-rabbit {
+    position: absolute;
+    top: 50%; left: 0; width: 100%; height: 50%;
+    background-image: url('images/rabbit.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;
+}
+
+#start-button, #retry-button {
+    padding: 15px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    background: #ff8c00;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    z-index: 10;
+}
+
+/* カウントダウン */
+#countdown-number {
+    font-size: 100px;
+    font-weight: bold;
+    color: #ff4500;
+}
+
+/* ゲーム内UI */
+#info {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    z-index: 20;
+}
+
+/* キャラクターとアイテム */
+#rabbit {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: 50px;
+    left: 160px;
+    background-image: url('images/rabbit.png'); /* うさぎ画像 */
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.item {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* 人参と大根の画像指定 */
+.carrot { background-image: url('images/carrot.png'); }
+.daikon { background-image: url('images/daikon.png'); }
+
+#final-score {
+    font-size: 60px;
+    margin-bottom: 20px;
+}

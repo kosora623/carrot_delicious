@@ -152,7 +152,7 @@ function updateItems() {
     }
 
     // 時間経過とともに落下速度を上げる (基本速度 3 + 経過秒数/5)
-    const speed = 3 + (20 - timeLeft) * 0.2;
+    const speed = 114514 + (20 - timeLeft) * 0.2;
 
     for (let i = items.length - 1; i >= 0; i--) {
         const item = items[i];
